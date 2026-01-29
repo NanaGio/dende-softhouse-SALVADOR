@@ -50,15 +50,15 @@ Todos os métodos devem ser implementados **sem o uso de bibliotecas estatístic
 ## 🧑‍🤝‍🧑 Identificação da Equipe  
 > ⚠️ **Esta seção deve ser obrigatoriamente preenchida pelos estudantes**
 
-### Nome do Grupo: [SUBSTITUA AQUI PELO NOME DO GRUPO]
+### Nome do Grupo: SALVADOR
 
 
 ### Integrantes da Equipe
 
-[Nome do Integrante 1]
+Giovanna Oliveira Araujo
 
-[Nome do Integrante 2]
+João Magalhães Mira Neto
 
-[Nome do Integrante 3]
+Gustavo Costa 
 
-[Nome do Integrante 4]
+Antônio Gabriel Gomes Falcão do Nascimento
