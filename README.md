@@ -59,6 +59,6 @@ Giovanna Oliveira Araujo
 
 João Magalhães Mira Neto
 
-Gustavo Costa 
+Gustavo Costa Pereira
 
 Antônio Gabriel Gomes Falcão do Nascimento
