@@ -1,6 +1,7 @@
 import unittest
 from dende_statistics import Statistics
 
+#test: python -m unittest tests.TestStatistics.(teste) - Gio
 
 class TestStatistics(unittest.TestCase):
 
@@ -22,7 +23,7 @@ class TestStatistics(unittest.TestCase):
             ],
 
             # Numéricas
-            "participants": [120, 80, 150, 40, 200, 90, 60, 180, 55, 160],
+            "participants": [50, 60, 70, 80, 90, 100, 110, 120, 130, 140], #[120, 80, 150, 40, 200, 90, 60, 180, 55, 160],#OG - Gio
             "duration_hours": [2,3,4,2,5,3,2,4,2,3],
             "ticket_price": [50,30,70,20,80,30,25,75,20,65],
             "rating": [4.5,4.0,4.8,3.9,4.9,4.2,4.0,4.7,3.8,4.6]
@@ -54,25 +55,26 @@ class TestStatistics(unittest.TestCase):
     def test_mode_priority(self):
         self.assertEqual(self.stats.mode("priority"), ["alta"])
 
-    # ---------- Variância ----------
+    # ---------- Variância ---------- #GIOVANNA - PS = Exemplo original com erro - TESTE = OK
 
     def test_variance_ticket_price(self):
-        self.assertAlmostEqual(self.stats.variance("ticket_price"), 507.25)
+        self.assertAlmostEqual(self.stats.variance("ticket_price"), 525.25)#o resultado não seria 525.25 (antes era 507)?
 
-    # ---------- Desvio Padrão ----------
+    # ---------- Desvio Padrão ---------- #GIOVANNA - PS = Exemplo original com erro - TESTE = OK
 
     def test_stdev_ticket_price(self):
-        self.assertAlmostEqual(self.stats.stdev("ticket_price"), 22.527756)
+        self.assertAlmostEqual(self.stats.stdev("ticket_price"), 22.9183, places=4)# places para evitar arredondamento errado
 
-    # ---------- Covariância ----------
+    # ---------- Covariância ---------- #GIOVANNA - PS = Exemplo original com erro - TESTE = OK
 
     def test_covariance_participants_ticket_price(self):
         self.assertAlmostEqual(
             self.stats.covariance("participants", "ticket_price"),
-            2103.25
+            #2103.25 #ORIGINAL
+            27.5
         )
 
-    # ---------- Itemset ----------
+    # ---------- Itemset ---------- #GIOVANNA - TESTE = OK 
 
     def test_itemset_priority(self):
         self.assertSetEqual(
