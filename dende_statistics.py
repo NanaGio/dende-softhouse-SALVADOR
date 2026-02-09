@@ -34,7 +34,17 @@ class Statistics:
         float
             A média dos valores na coluna.
         """
-        pass
+
+        values = self.dataset[column]
+
+        if isinstance(values[0], str):
+            print("Erro: coluna não numérica")
+            return None
+
+        if not values:
+            return 0.0
+        
+        return sum(values) / len(values)
 
     def median(self, column):
         """
@@ -52,7 +62,17 @@ class Statistics:
         float
             O valor da mediana da coluna.
         """
-        pass
+
+        values = sorted(self.dataset[column])
+        n = len(values)
+        mid = n // 2
+        if all(isinstance(v, (int, float)) for v in values):
+            if n % 2:
+                return values[mid]
+            else:
+                return (values[mid - 1] + values[mid]) / 2
+        else:
+            return values[mid]
 
     def mode(self, column):
         """
@@ -70,7 +90,12 @@ class Statistics:
         list
             Uma lista contendo o(s) valor(es) da moda.
         """
-        pass
+        values = self.dataset[column]
+        frequency = {}
+        for value in values:
+            frequency[value] = frequency.get(value, 0) + 1
+        max_freq = max(frequency.values())
+        return [key for key, freq in frequency.items() if freq == max_freq]
 
     def variance(self, column):
         """
