@@ -97,71 +97,67 @@ class Statistics:
         max_freq = max(frequency.values())
         return [key for key, freq in frequency.items() if freq == max_freq]
 
-    def variance(self, column):
-        """
-        Calcula a variância populacional de uma coluna.
+    def variance(self, column):#GIOVANNA - TESTADO = OK
 
-        Parâmetros
-        ----------
-        column : str
-            O nome da coluna (chave do dicionário do dataset).
+        if column not in self.dataset:
+            return None
 
-        Retorno
-        -------
-        float
-            A variância dos valores na coluna.
-        """
-        pass
+        dados = self.dataset[column]#extraindo os dados das colunas
 
-    def stdev(self, column):
-        """
-        Calcula o desvio padrão populacional de uma coluna.
+        if len(dados) == 0:#caso a coluna esteja vazia
+            return None
+        
+        media = sum(dados) / len(dados)#tirando a média da coluna
 
-        Parâmetros
-        ----------
-        column : str
-            O nome da coluna (chave do dicionário do dataset).
+        soma_quadrados = sum((x - media) ** 2 for x in dados)#ao quadrado de cada desvio
 
-        Retorno
-        -------
-        float
-            O desvio padrão dos valores na coluna.
-        """
-        pass
+        variancia_populacional = soma_quadrados / len(dados)#média novamente
 
-    def covariance(self, column_a, column_b):
-        """
-        Calcula a covariância entre duas colunas.
+        return variancia_populacional
+    
 
-        Parâmetros
-        ----------
-        column_a : str
-            O nome da primeira coluna (X).
-        column_b : str
-            O nome da segunda coluna (Y).
+    def stdev(self, column):#GIOVANNA - TESTADO = OK
 
-        Retorno
-        -------
-        float
-            O valor da covariância entre as duas colunas.
-        """
-        pass
+        variancia_populacional = self.variance(column)#extraindo dados
 
-    def itemset(self, column):
-        """
-        Retorna o conjunto de itens únicos em uma coluna.
+        if variancia_populacional is None:#caso a coluna esteja vazia
+            return None
 
-        Parâmetros
-        ----------
-        column : str
-            O nome da coluna (chave do dicionário do dataset).
+        desvio = variancia_populacional ** 0.5#raiz quadrada
 
-        Retorno
-        -------
-        set
-            Um conjunto com os valores únicos da coluna.
-        """
-        pass
+        return desvio
+
+    def covariance(self, column_a, column_b):#GIOVANNA - Testado = OK
+
+        valores_A = self.dataset[column_a]#extraindo os dados das colunas
+        valores_B = self.dataset[column_b]#extraindo os dados das colunas
+
+        n = len(valores_A)#len para saber o tamanho
+        media_A = sum(valores_A) / len(valores_A)#média
+        media_B = sum(valores_B) / len(valores_B)#média
+
+        desvios_A = []#armazenar os devios da coluna A
+        for x in valores_A:#listando os desvios
+            desvios_A.append( x - media_A)
+
+        desvios_B = []#armazenar os devios da coluna B
+        for x in valores_B:#listando os desvios
+            desvios_B.append( x - media_B)
+
+        soma_produtos = 0#começand do zero a soma dos produtos
+
+        for da, db in zip(desvios_A, desvios_B):#zip para unir em pares
+            soma_produtos += (da * db)#armazenando a soma dos produtos
+
+        resultado = soma_produtos / n #média de relacionamento
+
+        return float(resultado)
+
+    def itemset(self, column):#GIOVANNA - Testado = OK
+
+        valores_unicos = set(self.dataset[column])# set -> separa os valores únicos
+
+        return valores_unicos
 
     def absolute_frequency(self, column):
         """
@@ -278,4 +274,3 @@ class Statistics:
             e os valores são as contagens.
         """
         pass
-
