@@ -111,7 +111,22 @@ class Statistics:
         float
             A variância dos valores na coluna.
         """
-        pass
+        if column not in self.dataset:
+            return None
+
+        dados = self.dataset[column]#extraindo os dados das colunas
+
+        if len(dados) == 0:#caso a coluna esteja vazia
+            return None
+        
+        media = sum(dados) / len(dados)#tirando a média da coluna
+
+        soma_quadrados = sum((x - media) ** 2 for x in dados)#ao quadrado de cada desvio
+
+        variancia_populacional = soma_quadrados / len(dados)#média novamente
+
+        return variancia_populacional
+        
 
     def stdev(self, column):
         """
@@ -127,7 +142,14 @@ class Statistics:
         float
             O desvio padrão dos valores na coluna.
         """
-        pass
+        variancia_populacional = self.variance(column)#extraindo dados
+
+        if variancia_populacional is None:#caso a coluna esteja vazia
+            return None
+
+        desvio = variancia_populacional ** 0.5#raiz quadrada
+
+        return desvio
 
     def covariance(self, column_a, column_b):
         """
@@ -145,7 +167,29 @@ class Statistics:
         float
             O valor da covariância entre as duas colunas.
         """
-        pass
+        valores_A = self.dataset[column_a]#extraindo os dados das colunas
+        valores_B = self.dataset[column_b]#extraindo os dados das colunas
+
+        n = len(valores_A)#len para saber o tamanho
+        media_A = sum(valores_A) / len(valores_A)#média
+        media_B = sum(valores_B) / len(valores_B)#média
+
+        desvios_A = []#armazenar os devios da coluna A
+        for x in valores_A:#listando os desvios
+            desvios_A.append( x - media_A)
+
+        desvios_B = []#armazenar os devios da coluna B
+        for x in valores_B:#listando os desvios
+            desvios_B.append( x - media_B)
+
+        soma_produtos = 0#começand do zero a soma dos produtos
+
+        for da, db in zip(desvios_A, desvios_B):#zip para unir em pares
+            soma_produtos += (da * db)#armazenando a soma dos produtos
+
+        resultado = soma_produtos / n #média de relacionamento
+
+        return float(resultado)
 
     def itemset(self, column):
         """
@@ -161,7 +205,9 @@ class Statistics:
         set
             Um conjunto com os valores únicos da coluna.
         """
-        pass
+        valores_unicos = set(self.dataset[column])# set -> separa os valores únicos
+
+        return valores_unicos
 
     def absolute_frequency(self, column):
         """

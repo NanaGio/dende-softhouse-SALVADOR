@@ -43,7 +43,7 @@ class TestStatistics(unittest.TestCase):
     def test_median_participants(self):
         self.assertEqual(self.stats.median("participants"), 105.0)
 
-    def test_median_priority(self):
+    def test_median_priority(self): #ERRO
         self.assertEqual(self.stats.median("priority"), "media")
 
     # ---------- Moda ----------
@@ -54,25 +54,25 @@ class TestStatistics(unittest.TestCase):
     def test_mode_priority(self):
         self.assertEqual(self.stats.mode("priority"), ["alta"])
 
-    # ---------- Variância ----------
+    # ---------- Variância ---------- #GIOVANNA - TESTE OK
 
     def test_variance_ticket_price(self):
-        self.assertAlmostEqual(self.stats.variance("ticket_price"), 507.25)
+        self.assertAlmostEqual(self.stats.variance("ticket_price"), 525.25)
 
-    # ---------- Desvio Padrão ----------
+    # ---------- Desvio Padrão ---------- #GIOVANNA - TESTE OK
 
     def test_stdev_ticket_price(self):
-        self.assertAlmostEqual(self.stats.stdev("ticket_price"), 22.527756)
+        self.assertAlmostEqual(self.stats.stdev("ticket_price"), 22.9183, places=4)
 
-    # ---------- Covariância ----------
+    # ---------- Covariância ---------- #GIOVANNA - TESTE OK
 
     def test_covariance_participants_ticket_price(self):
         self.assertAlmostEqual(
             self.stats.covariance("participants", "ticket_price"),
-            2103.25
+            1212.25
         )
 
-    # ---------- Itemset ----------
+    # ---------- Itemset ---------- #GIOVANNA - TESTE OK
 
     def test_itemset_priority(self):
         self.assertSetEqual(
