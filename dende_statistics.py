@@ -224,7 +224,17 @@ class Statistics:
             Um dicionário onde as chaves são os itens e os valores são
             suas contagens (frequência absoluta).
         """
-        pass
+        dados = self.dataset[column]
+
+        frequencia = {}  # espaço para os valores
+
+        for item in dados:
+            if item in frequencia:  # aqui ele pergunta se esse item ja existe no dicionario
+                frequencia[item] += 1  # se existir, ele vai somar +1 a esse item ja existente
+            else:
+                frequencia[item] = 1  # caso não exista, ele cria uma entrada nova e seta o valor como 1
+
+        return frequencia
 
     def relative_frequency(self, column):
         """
@@ -241,7 +251,15 @@ class Statistics:
             Um dicionário onde as chaves são os itens e os valores são
             suas proporções (frequência relativa).
         """
-        pass
+        frequencia_absoluta = self.absolute_frequency(column)  # chama a função criada acima para fazer a contagem
+        total = len(self.dataset[column])  # puxa o valor total de itens
+        frequencia_relativa = {}  # espaço para as porcentagens
+
+        for chave, contagem in frequencia_absoluta.items():  # separa as informações de frequencia absoluta em 2 campos
+            frequencia_relativa[
+                chave] = contagem / total  # faz com que o valor de frequencia relativa seja o resultado da divisão
+
+        return frequencia_relativa
 
     def cumulative_frequency(self, column, frequency_method='absolute'):
         """
@@ -263,7 +281,27 @@ class Statistics:
             Um dicionário ordenado com os itens como chaves e suas
             frequências acumuladas como valores.
         """
-        pass
+        if frequency_method == 'absolute':
+            dados = self.absolute_frequency(column)  # chama a função que conta, caso tenha sido solicitada
+        else:
+            dados = self.relative_frequency(column)  # se não, chama a função de porcentagem
+
+        if column == 'priority':
+            ordem = ['baixa', 'media', 'alta']  # força uma ordem especifica caso a coluna trabalhada seja prioridade
+        else:
+            ordem = sorted(dados.keys())  # do contrario a ordem é alfabética
+
+        acumulado = 0  # valor inicial setado em 0
+        resultado = {}  # campo vazio, preenchido pós soma
+
+        for chave in ordem:
+            valor_atual = dados.get(chave,
+                                    0)  # pega o valor relativo a cada idem na fila, seta 0 caso n exista nenhum representante
+
+            acumulado = acumulado + valor_atual  # soma
+            resultado[chave] = acumulado  # preenche o campo resultado com o valor da soma
+
+        return resultado
 
     def conditional_probability(self, column, value1, value2):
         """
@@ -309,7 +347,6 @@ class Statistics:
             return 0.0
 
         return sucessos_ba / total_b
-        pass
 
     def quartiles(self, column):
         """
@@ -365,7 +402,6 @@ class Statistics:
             q3 = (upper_half[mid_u])
 
         return {"Q1": q1, "Q2": q2, "Q3": q3}
-        pass
 
     def histogram(self, column, bins):
         """
@@ -416,5 +452,3 @@ class Statistics:
             histograma[chave_intervalo] += 1
 
         return histograma
-
-        pass
