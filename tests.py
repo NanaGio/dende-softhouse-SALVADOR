@@ -44,7 +44,7 @@ class TestStatistics(unittest.TestCase):
         self.assertEqual(self.stats.median("participants"), 105.0)
 
     def test_median_priority(self): #ERRO
-        self.assertEqual(self.stats.median("priority"), "media")
+        self.assertEqual(self.stats.median("priority"), "baixa")
 
     # ---------- Moda ----------
 
