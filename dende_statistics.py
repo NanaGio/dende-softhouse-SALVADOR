@@ -35,16 +35,16 @@ class Statistics:
             A média dos valores na coluna.
         """
 
-        values = self.dataset[column]
+        values = self.dataset[column] # extraindo os dados da coluna
 
-        if isinstance(values[0], str):
+        if isinstance(values[0], str): # validando dados
             print("Erro: coluna não numérica")
             return None
 
-        if not values:
+        if not values: # caso a coluna esteja vazia
             return 0.0
         
-        return sum(values) / len(values)
+        return sum(values) / len(values) # calculando a média (soma dos valores dividido pela quantidade de valores)
 
     def median(self, column):
         """
@@ -63,16 +63,16 @@ class Statistics:
             O valor da mediana da coluna.
         """
 
-        values = sorted(self.dataset[column])
-        n = len(values)
-        mid = n // 2
-        if all(isinstance(v, (int, float)) for v in values):
+        values = sorted(self.dataset[column]) # extraindo os dados da coluna e ordenando
+        n = len(values) # quantidade de valores
+        mid = n // 2 # índice do meio
+        if all(isinstance(v, (int, float)) for v in values): # validando dados
             if n % 2:
-                return values[mid]
+                return values[mid] # para dados numéricos, a mediana é a média dos dois valores centrais (se par) ou o valor do meio (se ímpar)
             else:
-                return (values[mid - 1] + values[mid]) / 2
+                return (values[mid - 1] + values[mid]) / 2 # para dados numéricos, a mediana é a média dos dois valores centrais (se par) ou o valor do meio (se ímpar)
         else:
-            return values[mid]
+            return values[mid] # para dados não numéricos, a mediana é o valor do meio (ou um dos dois do meio)
 
     def mode(self, column):
         """
@@ -90,12 +90,12 @@ class Statistics:
         list
             Uma lista contendo o(s) valor(es) da moda.
         """
-        values = self.dataset[column]
+        values = self.dataset[column] # extraindo os dados da coluna
         frequency = {}
-        for value in values:
-            frequency[value] = frequency.get(value, 0) + 1
-        max_freq = max(frequency.values())
-        return [key for key, freq in frequency.items() if freq == max_freq]
+        for value in values: # contando a frequência de cada valor na coluna
+            frequency[value] = frequency.get(value, 0) + 1 # se o valor já existe no dicionário, incrementa a contagem; caso contrário, inicia a contagem em 1
+        max_freq = max(frequency.values()) # encontrando a frequência máxima
+        return [key for key, freq in frequency.items() if freq == max_freq] # retornando uma lista com os valores que têm a frequência máxima (moda)
 
     def variance(self, column):
         """
